@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PipeHype</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_selection">Selection</string>
+    <string name="title_activity_record">Record</string>
+    <string name="title_activity_fft">FFT</string>
+
+</resources>
