@@ -10,5 +10,6 @@
     <string name="button1_name">ton_abspielen</string>
     <string name="AufnahmeButton">Aufnahme</string>
     <string name="Aufnahme_Button">Record</string>
+    <string name="DBMesser">DB_Messer</string>
 
 </resources>

@@ -28,11 +28,11 @@ public class Record extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_record);
-
+		
+		
 		//Button für Beispielton wird zugeordnet
 		Button button_ton = (Button) findViewById(R.id.button1);
 		button_ton.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {	 
 			//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
@@ -42,37 +42,17 @@ public class Record extends Activity {
 			tone.playSound();
 			}});
 		
-		
-		Button Button_AufnahmeStart = (Button) findViewById(R.id.button2);
-		Button_AufnahmeStart.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View v) {
-				recorder.start();
-				
-				
-				
-			}
-		});
 		
 		
-		Button Button_AufnahmeStop = (Button) findViewById(R.id.button3);
-		Button_AufnahmeStop.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				recorder.stop();
-				
-				
-				
-				
-			}
-		});
 	}
 	
 		
 		
-		
+	@Override public void onDestroy(){	
+		recorder.close();
+		super.onDestroy();
+	}
 		
 		
 		

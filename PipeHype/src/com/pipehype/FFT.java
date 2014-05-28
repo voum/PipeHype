@@ -1,5 +1,7 @@
 package com.pipehype;
 
+import java.io.File;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,11 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class FFT {
-
+	
+	
+	public FFT(File file){
+		
+		
+	}
 	
 }
