@@ -60,10 +60,12 @@ public class Record extends Activity {
 				Toast.makeText(getApplicationContext(), "DBStop", Toast.LENGTH_LONG).show();
 			}});
 		
-		Button button_dB = (Button) findViewById(R.id.button3);
+		Button button_dB = (Button) findViewById(R.id.button4);
 		button_dB.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {					
+				double dbWert = db.getAmplitudeEMA();
+				System.out.println(dbWert);
 				
 			}});
 		
