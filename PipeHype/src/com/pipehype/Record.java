@@ -17,12 +17,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import android.os.Build;
 
 public class Record extends Activity {
 
 	 double BeispielTonFrequenz = 400;
-	 Recorder recorder = new Recorder();
+	 DB db = new DB();
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class Record extends Activity {
 		Button button_ton = (Button) findViewById(R.id.button1);
 		button_ton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v) {	 
+			public void onClick(View v) {
 			//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
 			Tone tone = new Tone();
 			tone.genTone(BeispielTonFrequenz);
@@ -42,17 +43,35 @@ public class Record extends Activity {
 			tone.playSound();
 			}});
 		
-
+		
+		Button button_Start = (Button) findViewById(R.id.button2);
+		button_Start.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {	
+				db.start();
+				Toast.makeText(getApplicationContext(), "DBStart", Toast.LENGTH_LONG).show();
+			}});
+		
+		Button button_Stop = (Button) findViewById(R.id.button3);
+		button_Stop.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {					
+				db.stop();
+				Toast.makeText(getApplicationContext(), "DBStop", Toast.LENGTH_LONG).show();
+			}});
+		
+		Button button_dB = (Button) findViewById(R.id.button3);
+		button_dB.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {					
+				
+			}});
 		
 		
 	}
 	
 		
-		
-	@Override public void onDestroy(){	
-		recorder.close();
-		super.onDestroy();
-	}
+	
 		
 		
 		
