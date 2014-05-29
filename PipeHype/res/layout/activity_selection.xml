@@ -1,8 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.pipehype.Selection"
     tools:ignore="MergeRootFrame" >
 
@@ -20,15 +21,29 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:text="@string/ton_auswaehlen" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:text="@string/to_level_2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:text="@string/to_level_3" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="278dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="100dp"
         android:text="@string/back_to_menu" />
 
-</FrameLayout>
+</LinearLayout>

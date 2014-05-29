@@ -14,7 +14,10 @@
     <string name="header">Willkommen zu PipeHype!!</string>
     <string name="ton_ueben">Ton üben</string>
     <string name="tonauswahl">Tonauswahl</string>
-    <string name="ton_auswaehlen">Testton</string>
-    <string name="back_to_menu">Hauptmenü</string>
+    <string name="ton_auswaehlen">Level 1</string>
+    <string name="back_to_menu">zurück zum Hauptmenü</string>
+    <string name="to_anleitung">Anleitung</string>
+    <string name="to_level_2">Level 2</string>
+    <string name="to_level_3">Level 3</string>
 
 </resources>

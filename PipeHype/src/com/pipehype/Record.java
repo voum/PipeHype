@@ -42,7 +42,7 @@ public class Record extends Activity implements Callback{
 	 Integer BeispielTonFrequenz = 600;
 	 Integer time = 300;
 	 Integer level = 85;
-	 Integer erreichteVögel = 0;
+	 Integer erreichteVoegel = 0;
 	 Integer counter = 0;
 	 double dbwert;
 	 boolean db_active = false;
@@ -91,7 +91,7 @@ public class Record extends Activity implements Callback{
 		
 		
 		
-		//Button für Beispielton wird zugeordnet
+		//Button fï¿½r Beispielton wird zugeordnet
 		Button button_ton = (Button) findViewById(R.id.button1);
 		button_ton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -105,7 +105,7 @@ public class Record extends Activity implements Callback{
 
 		
 		
-		//Button für Aufnahme des Pfeiftons wird mit Listener belegt.
+		//Button fï¿½r Aufnahme des Pfeiftons wird mit Listener belegt.
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
 		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			
@@ -141,7 +141,7 @@ public class Record extends Activity implements Callback{
 
 	
 	@Override
-	//MessageHandler für "handler" nimmt Nachrichten von "thread" entgegegen, während dieser läuft.
+	//MessageHandler fï¿½r "handler" nimmt Nachrichten von "thread" entgegegen, wï¿½hrend dieser lï¿½uft.
 	public boolean handleMessage(Message arg0) {
 		//Die berechnete Amplitude wird in Dezibel umgerechnet und ausgegeben.
 		double dbWert = db.getAmplitudeEMA();

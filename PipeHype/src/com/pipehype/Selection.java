@@ -3,12 +3,15 @@ package com.pipehype;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.os.Build;
 
 public class Selection extends ActionBarActivity {
@@ -17,13 +20,57 @@ public class Selection extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selection);
+		
+		Button level1 = (Button) findViewById(R.id.button1);
+		level1.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				gotoLevel1();
+			}
+		});
+		Button level2 = (Button) findViewById(R.id.button3);
+		level2.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				gotoLevel2();
+			}
+		});
+		Button level3 = (Button) findViewById(R.id.button4);
+		level3.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				gotoLevel3();
+			}
+		});
+		Button menu = (Button) findViewById(R.id.button2);
+		menu.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				back_to_main();
+			}
+		});
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
+	private void gotoLevel1(){
+    	Intent intent = new Intent(this, Record.class);
+    	startActivity(intent);
+    }
+	private void gotoLevel2(){
+    	Intent intent = new Intent(this, Record.class);
+    	startActivity(intent);
+    }
+	private void gotoLevel3(){
+    	Intent intent = new Intent(this, Record.class);
+    	startActivity(intent);
+    }
+	private void back_to_main(){
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
