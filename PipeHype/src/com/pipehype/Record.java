@@ -1,10 +1,18 @@
 package com.pipehype;
 
+
+
+
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -27,39 +35,60 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 import android.os.Build;
 
+@SuppressLint("WrongCall")
 public class Record extends Activity implements Callback{
 
-	 double BeispielTonFrequenz = 400;
-	 DB db = new DB();
-	 double dbWert;
-	 boolean db_active = false;
+	 Integer BeispielTonFrequenz = 600;
 	 Integer time = 300;
+	 Integer level = 85;
+	 Integer erreichteVögel = 0;
+	 double dbwert;
+	 boolean db_active = false;
+	 DB db = new DB();
+	 Voegel voegel = new Voegel();
 	 EditText db_ausgabe, Bewertung;
+	
+
+	 //public Record(Integer BeispielTonFrequenz, Integer time, Integer level){
+		 
+	// }
 	 
+
+	 
+
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
 
-	 
-	// Runnable hier wird festgelegt was passiert
+     //private Player player = new Player(new Runnable(){
+	//		@Override public void run(){
+				
+		//	}
+		//});
+     
      
      Runnable runnable = new Runnable() {
          @Override
          public void run() {
-             // hier machst du eigentlich gar nichts nur eine Schleife die immer eine leere Message an deinen Handler schickt
+        	 
+        	 Integer counter = 0;
+        	 
              while (db_active == true){
                  handler.sendEmptyMessage(0);
                  try {
-                     // Hier warte ich eine Sekunde, die Zeit kannst du natürlich nach belieben ändern
                      Thread.sleep(100);
+                     counter++;
+                     if((counter % 50) == 0){
+                    	 voegel.voegelAddieren();
+                    	// player.start();
+                     }
                  } catch (InterruptedException e) {
-                     // Nichts machen (eigentlich unschön aber ist ja nur ne demo ;))
-                 }
+                 }  
              }
          }
      };
      
      Thread thread = new Thread(runnable);
-     
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,9 +96,6 @@ public class Record extends Activity implements Callback{
 		db_ausgabe = (EditText) findViewById(R.id.editText1);
 		Bewertung = (EditText) findViewById(R.id.editText2);
 		db.start(); 
-		
-		
-		
 		
 		
 		
@@ -84,33 +110,34 @@ public class Record extends Activity implements Callback{
 			//...Der Ton wird abgespielt.
 			tone.playSound();
 			}});
+
 		
 		
-		//Button für Aufnahme...
+		//Button für Aufnahme des Pfeiftons wird mit Listener belegt.
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
 		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-			@SuppressWarnings("deprecation")
+			
 			@Override public void onCheckedChanged(CompoundButton button_Start, boolean state) {
 				
 				if(state){
-					
+					//Ist der Button aktiv, wird der oben erstellte Thread "thread" gestartet. 
 					Toast.makeText(getApplicationContext(), "Los geht's!", Toast.LENGTH_LONG).show();
 					thread.start();
 					db_active = true;
 					
-				} else {	
+					
+					
+				} else {
+					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
 					db_active = false;
 					thread.interrupt();
-					
-					
-	
+					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
+
 				}
-			
 		}});
 		
 	}
 	
-
 	
 
 	@Override
@@ -121,14 +148,19 @@ public class Record extends Activity implements Callback{
 		return true;
 	}
 
+	
 	@Override
+	//MessageHandler für "handler" nimmt Nachrichten von "thread" entgegegen, während dieser läuft.
 	public boolean handleMessage(Message arg0) {
+		//Die berechnete Amplitude wird in Dezibel umgerechnet und ausgegeben.
 		double dbWert = db.getAmplitudeEMA();
 		System.out.println(dbWert);
 		db_ausgabe.setText("" + dbWert);	
 		
-		if(dbWert> 60 & dbWert < 90){
+		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
+		if(dbWert> level-10 & dbWert < level+10){
 			Bewertung.setText("Gut!!!");
+			
 		}
 		else{
 			Bewertung.setText("Schlecht!!!");
