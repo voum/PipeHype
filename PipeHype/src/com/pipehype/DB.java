@@ -8,10 +8,11 @@ import java.io.IOException;
 import android.media.MediaRecorder;
 
 public class DB {
+	
         static final private double EMA_FILTER = 0.6;
-
         private MediaRecorder mRecorder = null;
-        private double mEMA = 0.0;
+        private double dB = 0.0;
+        double mEMA = 0.0;
 
         public void start() {
                 if (mRecorder == null) {
@@ -41,7 +42,7 @@ public class DB {
                         mRecorder = null;
                 }
         }
-        
+        //Amplitude auslesen
         public double getAmplitude() {
                 if (mRecorder != null)
                         return  (mRecorder.getMaxAmplitude()/2700.0);
@@ -49,10 +50,12 @@ public class DB {
                         return 0;
 
         }
-
+        //Umrechnen in dB
         public double getAmplitudeEMA() {
                 double amp = getAmplitude();
+                
                 mEMA = EMA_FILTER * amp + (1.0 - EMA_FILTER) * mEMA;
-                return mEMA;
+                dB = 20 * Math.log10(mEMA/0.0002);
+                return dB;
         }
 }

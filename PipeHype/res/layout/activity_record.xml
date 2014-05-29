@@ -13,24 +13,29 @@
         android:layout_gravity="bottom"
         android:text="@string/button1_name" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Stop" />
-
-    <Button
-        android:id="@+id/button4"
+    <ToggleButton
+        android:id="@+id/toggleButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="dB" />
+        android:text="Start" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ems="10" />
 
 </FrameLayout>
