@@ -3,12 +3,15 @@ package com.pipehype;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
@@ -17,6 +20,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Layout buttons um zwischen den Activities zu schalten
+        Button button = (Button) findViewById(R.id.button1);
+        button.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				showSelection();
+			}
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -33,7 +44,11 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    //Layout-intents zur Verknüpfung der Activities
+    private void showSelection(){
+    	Intent intent = new Intent(this, Selection.class);
+    	startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
