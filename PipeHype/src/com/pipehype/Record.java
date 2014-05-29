@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,13 +43,15 @@ public class Record extends Activity implements Callback{
 	 Integer time = 300;
 	 Integer level = 85;
 	 Integer erreichteVögel = 0;
+	 Integer counter = 0;
 	 double dbwert;
 	 boolean db_active = false;
 	 DB db = new DB();
 	 Voegel voegel = new Voegel();
 	 EditText db_ausgabe, Bewertung;
-	
-
+	 
+	 
+	 
 	 //public Record(Integer BeispielTonFrequenz, Integer time, Integer level){
 		 
 	// }
@@ -58,29 +61,17 @@ public class Record extends Activity implements Callback{
 
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
-
-     //private Player player = new Player(new Runnable(){
-	//		@Override public void run(){
-				
-		//	}
-		//});
      
      
      Runnable runnable = new Runnable() {
          @Override
          public void run() {
-        	 
-        	 Integer counter = 0;
-        	 
+
              while (db_active == true){
                  handler.sendEmptyMessage(0);
                  try {
                      Thread.sleep(100);
-                     counter++;
-                     if((counter % 50) == 0){
-                    	 voegel.voegelAddieren();
-                    	// player.start();
-                     }
+                    
                  } catch (InterruptedException e) {
                  }  
              }
@@ -96,6 +87,7 @@ public class Record extends Activity implements Callback{
 		db_ausgabe = (EditText) findViewById(R.id.editText1);
 		Bewertung = (EditText) findViewById(R.id.editText2);
 		db.start(); 
+		
 		
 		
 		
@@ -124,9 +116,8 @@ public class Record extends Activity implements Callback{
 					Toast.makeText(getApplicationContext(), "Los geht's!", Toast.LENGTH_LONG).show();
 					thread.start();
 					db_active = true;
-					
-					
-					
+					//voegel.vogelSound();
+
 				} else {
 					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
 					db_active = false;
@@ -160,6 +151,13 @@ public class Record extends Activity implements Callback{
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
 		if(dbWert> level-10 & dbWert < level+10){
 			Bewertung.setText("Gut!!!");
+			counter++;
+            if((counter % 50) == 0){
+            	 voegel.voegelAddieren();
+            	 
+            	 voegel.vogelSound(getApplicationContext());
+            	 
+             }
 			
 		}
 		else{

@@ -34,7 +34,7 @@ public class DB {
                     mEMA = 0.0;
                 }
         }
-        
+        //Stoppen des Recorders...
         public void stop() {
                 if (mRecorder != null) {
                         mRecorder.stop();       
