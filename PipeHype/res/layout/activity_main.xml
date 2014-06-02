@@ -9,20 +9,23 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="212dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="34dp"
         android:text="@string/header"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="115dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="98dp"
         android:layout_marginTop="100dp"
-        android:text="@string/ton_ueben" />
+        android:text="@string/ton_ueben"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button2"
