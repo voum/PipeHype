@@ -21,7 +21,7 @@ public class Voegel extends Activity {
 	
 	
 	public String getVoegel(){
-		return "Sie haben " + anzahlVoegel +" Vogeldamen erobert!";
+		return "Sie haben " + anzahlVoegel +" Vogeldame(n) angelockt!";
 		
 	}
 	

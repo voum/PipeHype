@@ -1,9 +1,5 @@
 package com.pipehype;
 
-
-
-
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -44,11 +40,13 @@ public class Record extends Activity implements Callback{
 	 Integer level = 85;
 	 Integer erreichteVoegel = 0;
 	 Integer counter = 0;
+	 Integer zeit = 10000;
 	 double dbwert;
 	 boolean db_active = false;
 	 DB db = new DB();
 	 Voegel voegel = new Voegel();
-	 EditText db_ausgabe, Bewertung;
+	 EditText db_ausgabe, Bewertung, timer;
+	 
 	 
 	 
 	 
@@ -61,21 +59,21 @@ public class Record extends Activity implements Callback{
 
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
+     final Handler handler1 = new Handler(this);
      
      
      Runnable runnable = new Runnable() {
          @Override
          public void run() {
 
-             while (db_active == true){
+             while (db_active == true && zeit > 0){
                  handler.sendEmptyMessage(0);
                  try {
                      Thread.sleep(100);
-                    
                  } catch (InterruptedException e) {
                  }  
-             }
-         }
+             }  
+             }     
      };
      
      Thread thread = new Thread(runnable);
@@ -86,29 +84,30 @@ public class Record extends Activity implements Callback{
 		setContentView(R.layout.activity_record);
 		db_ausgabe = (EditText) findViewById(R.id.editText1);
 		Bewertung = (EditText) findViewById(R.id.editText2);
+		timer = (EditText) findViewById(R.id.editText3);	
 		db.start(); 
 		
 		
 		
 		
 		//Button fï¿½r Beispielton wird zugeordnet
-		Button button_ton = (Button) findViewById(R.id.button1);
-		button_ton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-			//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
-			Tone tone = new Tone();
-			tone.genTone(BeispielTonFrequenz);
-			//...Der Ton wird abgespielt.
-			tone.playSound();
-			}});
+		//Button button_ton = (Button) findViewById(R.id.button1);
+		//button_ton.setOnClickListener(new OnClickListener(){
+		//	@Override
+		//	public void onClick(View v) {
+		//	//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
+		//	Tone tone = new Tone();
+		//	tone.genTone(BeispielTonFrequenz);
+		//	//...Der Ton wird abgespielt.
+		//	tone.playSound();
+		//	}});
 
 		
 		
 		//Button fï¿½r Aufnahme des Pfeiftons wird mit Listener belegt.
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
 		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-			
+		
 			@Override public void onCheckedChanged(CompoundButton button_Start, boolean state) {
 				
 				if(state){
@@ -116,9 +115,8 @@ public class Record extends Activity implements Callback{
 					Toast.makeText(getApplicationContext(), "Los geht's!", Toast.LENGTH_LONG).show();
 					thread.start();
 					db_active = true;
-					//voegel.vogelSound();
 
-				} else {
+				} else{
 					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
 					db_active = false;
 					thread.interrupt();
@@ -147,28 +145,24 @@ public class Record extends Activity implements Callback{
 		double dbWert = db.getAmplitudeEMA();
 		System.out.println(dbWert);
 		db_ausgabe.setText("" + dbWert);	
+		//Zeit wird heruntergezählt
+		zeit = zeit - 100;
+		timer.setText("Verbleibende Zeit: " + zeit/1000 + " Sekunden!");
 		
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
 		if(dbWert> level-10 & dbWert < level+10){
 			Bewertung.setText("Gut!!!");
-			counter++;
+			counter++;	
             if((counter % 50) == 0){
             	 voegel.voegelAddieren();
-            	 
             	 voegel.vogelSound(getApplicationContext());
-            	 
-             }
-			
+             }  
 		}
 		else{
 			Bewertung.setText("Schlecht!!!");
 		}
-		
 		return false;
 	}
 	
-
-	
-
 
 }

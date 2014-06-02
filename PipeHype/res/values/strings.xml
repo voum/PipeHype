@@ -19,5 +19,7 @@
     <string name="to_anleitung">Anleitung</string>
     <string name="to_level_2">Level 2</string>
     <string name="to_level_3">Level 3</string>
+    <string name="Aufnahme_starten">Start!</string>
+    <string name="Aufnahme_stoppen">Vorzeitiger Stop!</string>
 
 </resources>

@@ -25,18 +25,18 @@
         android:text="@string/ton_auswaehlen" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:text="@string/to_level_2" />
-
-    <Button
         android:id="@+id/button4"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:text="@string/to_level_3" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:text="@string/to_level_2" />
 
     <Button
         android:id="@+id/button2"
