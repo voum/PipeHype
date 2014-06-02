@@ -37,10 +37,10 @@ public class Record extends Activity implements Callback{
 
 	 Integer BeispielTonFrequenz = 600;
 	 Integer time = 300;
-	 Integer level = 85;
+	 Integer level = 98;
 	 Integer erreichteVoegel = 0;
 	 Integer counter = 0;
-	 Integer zeit = 10000;
+	 Integer zeit = 20000; // in ms
 	 double dbwert;
 	 boolean db_active = false;
 	 DB db = new DB();
@@ -48,15 +48,6 @@ public class Record extends Activity implements Callback{
 	 EditText db_ausgabe, Bewertung, timer;
 	 
 	 
-	 
-	 
-	 //public Record(Integer BeispielTonFrequenz, Integer time, Integer level){
-		 
-	// }
-	 
-
-	 
-
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
      final Handler handler1 = new Handler(this);
@@ -73,6 +64,13 @@ public class Record extends Activity implements Callback{
                  } catch (InterruptedException e) {
                  }  
              }  
+             try {
+				Thread.sleep(5000);
+				finish();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
              }     
      };
      
@@ -108,7 +106,7 @@ public class Record extends Activity implements Callback{
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
 		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 		
-			@Override public void onCheckedChanged(CompoundButton button_Start, boolean state) {
+			@Override public void onCheckedChanged(final CompoundButton button_Start, boolean state) {
 				
 				if(state){
 					//Ist der Button aktiv, wird der oben erstellte Thread "thread" gestartet. 
@@ -116,11 +114,21 @@ public class Record extends Activity implements Callback{
 					thread.start();
 					db_active = true;
 
+					
+					if (button_Start.isChecked()){
+		                handler1.postDelayed(new Runnable() {
+		                    public void run() {
+		                         button_Start.setChecked(false);
+		                    }
+		                }, zeit);}
+
 				} else{
 					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
 					db_active = false;
 					thread.interrupt();
 					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
+					
+					
 
 				}
 		}});
@@ -144,22 +152,22 @@ public class Record extends Activity implements Callback{
 		//Die berechnete Amplitude wird in Dezibel umgerechnet und ausgegeben.
 		double dbWert = db.getAmplitudeEMA();
 		System.out.println(dbWert);
-		db_ausgabe.setText("" + dbWert);	
+		db_ausgabe.setText("Lautstärke: " + dbWert);	
 		//Zeit wird heruntergezählt
 		zeit = zeit - 100;
-		timer.setText("Verbleibende Zeit: " + zeit/1000 + " Sekunden!");
+		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
 		
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
-		if(dbWert> level-10 & dbWert < level+10){
+		if(dbWert> level-5 & dbWert < level+5){
 			Bewertung.setText("Gut!!!");
 			counter++;	
-            if((counter % 50) == 0){
+            if((counter % 30) == 0){
             	 voegel.voegelAddieren();
             	 voegel.vogelSound(getApplicationContext());
              }  
 		}
 		else{
-			Bewertung.setText("Schlecht!!!");
+			Bewertung.setText("LAUTER!!!");
 		}
 		return false;
 	}
