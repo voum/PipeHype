@@ -8,18 +8,18 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" android:theme="@style/AppTheme">
         
-        <activity android:label="@string/app_name" android:name="com.pipehype.MainActivity"/>
-        
-        
-          
-        <activity android:label="@string/title_activity_selection" android:name="com.pipehype.Selection"/>
-        <activity android:label="@string/title_activity_record" android:name="com.pipehype.Record">
-        
-          <intent-filter>
+        <activity android:label="@string/app_name" android:name="com.pipehype.MainActivity">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
+          
+        <activity android:label="@string/title_activity_selection" android:name="com.pipehype.Selection"/>
+        <activity android:label="@string/title_activity_record" android:name="com.pipehype.Record"/>
+        
+          
         
         <activity android:label="@string/title_activity_fft" android:name="com.pipehype.FFT"/>
         <!--created by Thomas at 2014-05-27 08:32:30-->
