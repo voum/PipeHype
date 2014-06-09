@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
         button.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				showSelection();
+				goToSelection();
 			}
         });
 
@@ -36,6 +36,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -44,10 +46,12 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
     //Layout-intents zur Verknüpfung der Activities
-    private void showSelection(){
+    private void goToSelection(){
     	Intent intent = new Intent(this, Selection.class);
     	startActivity(intent);
+    	this.finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

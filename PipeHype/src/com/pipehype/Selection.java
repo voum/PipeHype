@@ -16,6 +16,9 @@ import android.os.Build;
 
 public class Selection extends ActionBarActivity {
 
+	
+	Bundle Level = new Bundle();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,14 +31,14 @@ public class Selection extends ActionBarActivity {
 				gotoLevel1();
 			}
 		});
-		Button level2 = (Button) findViewById(R.id.button3);
+		Button level2 = (Button) findViewById(R.id.button4);
 		level2.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				gotoLevel2();
 			}
 		});
-		Button level3 = (Button) findViewById(R.id.button4);
+		Button level3 = (Button) findViewById(R.id.button3);
 		level3.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -56,20 +59,28 @@ public class Selection extends ActionBarActivity {
 		}
 	}
 	private void gotoLevel1(){
-    	Intent intent = new Intent(this, Record.class);
-    	startActivity(intent);
+		Level.putInt("Level", 20);
+		Intent intent = new Intent(this, Record.class);
+    	intent.putExtras(Level);
+		startActivity(intent);
+    	this.finish();
     }
 	private void gotoLevel2(){
-    	Intent intent = new Intent(this, Record.class);
-    	startActivity(intent);
+		Level.putInt("Level", 30);
+		Intent intent = new Intent(this, Record.class);
+		intent.putExtras(Level);
+    	startActivity(intent);    
     }
 	private void gotoLevel3(){
-    	Intent intent = new Intent(this, Record.class);
+		Level.putInt("Level", 45);
+		Intent intent = new Intent(this, Record.class);
+		intent.putExtras(Level);
     	startActivity(intent);
     }
 	private void back_to_main(){
     	Intent intent = new Intent(this, MainActivity.class);
     	startActivity(intent);
+    	this.finish();
     }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

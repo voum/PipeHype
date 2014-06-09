@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -35,9 +36,10 @@ import android.os.Build;
 @SuppressLint("WrongCall")
 public class Record extends Activity implements Callback{
 
-	 Integer BeispielTonFrequenz = 600;
-	 Integer time = 300;
-	 Integer level = 98;
+	 //Integer BeispielTonFrequenz = 600;
+	 Integer dBlevel = 98;
+	 Bundle Level;
+	 	Integer zeitLevel;
 	 Integer erreichteVoegel = 0;
 	 Integer counter = 0;
 	 Integer zeit = 20000; // in ms
@@ -48,10 +50,11 @@ public class Record extends Activity implements Callback{
 	 EditText db_ausgabe, Bewertung, timer;
 	 
 	 
+	 
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
      final Handler handler1 = new Handler(this);
-     
+      
      
      Runnable runnable = new Runnable() {
          @Override
@@ -66,7 +69,7 @@ public class Record extends Activity implements Callback{
              }  
              try {
 				Thread.sleep(5000);
-				finish();
+				//finish();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -85,9 +88,13 @@ public class Record extends Activity implements Callback{
 		timer = (EditText) findViewById(R.id.editText3);	
 		db.start(); 
 		
+		Level = getIntent().getExtras();
+		zeitLevel = Level.getInt("Level");
 		
+		System.out.println(zeitLevel);
 		
-		
+		//Levelwerte werden empfangen
+
 		//Button f�r Beispielton wird zugeordnet
 		//Button button_ton = (Button) findViewById(R.id.button1);
 		//button_ton.setOnClickListener(new OnClickListener(){
@@ -125,17 +132,11 @@ public class Record extends Activity implements Callback{
 				} else{
 					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
 					db_active = false;
-					thread.interrupt();
+					close();
 					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
-					
-					
-
 				}
-		}});
-		
+		}});	
 	}
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -144,8 +145,16 @@ public class Record extends Activity implements Callback{
 		getMenuInflater().inflate(R.menu.record, menu);
 		return true;
 	}
-
 	
+	//Activity wird geschlossen
+	public void close(){
+		Intent intent = new Intent(this, Selection.class);
+		System.out.println("halt.");	
+		db.stop();
+    	startActivity(intent);
+    	this.finish();		
+	}
+
 	@Override
 	//MessageHandler f�r "handler" nimmt Nachrichten von "thread" entgegegen, w�hrend dieser l�uft.
 	public boolean handleMessage(Message arg0) {
@@ -158,10 +167,10 @@ public class Record extends Activity implements Callback{
 		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
 		
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
-		if(dbWert> level-5 & dbWert < level+5){
+		if(dbWert> dBlevel-5 & dbWert < dBlevel+5){
 			Bewertung.setText("Gut!!!");
 			counter++;	
-            if((counter % 30) == 0){
+            if((counter % zeitLevel) == 0){
             	 voegel.voegelAddieren();
             	 voegel.vogelSound(getApplicationContext());
              }  
