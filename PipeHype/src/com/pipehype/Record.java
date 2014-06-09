@@ -38,11 +38,13 @@ public class Record extends Activity implements Callback{
 
 	 //Integer BeispielTonFrequenz = 600;
 	 Integer dBlevel = 98;
+	 //Levelwerte aus Selection.java werden im Bundle Level gesichert und übergeben.
 	 Bundle Level;
 	 	Integer zeitLevel;
+	 	
 	 Integer erreichteVoegel = 0;
 	 Integer counter = 0;
-	 Integer zeit = 20000; // in ms
+	 Integer zeit = 21000; // in ms
 	 double dbwert;
 	 boolean db_active = false;
 	 DB db = new DB();
@@ -67,18 +69,10 @@ public class Record extends Activity implements Callback{
                  } catch (InterruptedException e) {
                  }  
              }  
-             try {
-				Thread.sleep(5000);
-				//finish();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+     
              }     
      };
      
-     Thread thread = new Thread(runnable);
- 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,13 +81,9 @@ public class Record extends Activity implements Callback{
 		Bewertung = (EditText) findViewById(R.id.editText2);
 		timer = (EditText) findViewById(R.id.editText3);	
 		db.start(); 
-		
 		Level = getIntent().getExtras();
-		zeitLevel = Level.getInt("Level");
+		zeitLevel = Level.getInt("Level");		
 		
-		System.out.println(zeitLevel);
-		
-		//Levelwerte werden empfangen
 
 		//Button fï¿½r Beispielton wird zugeordnet
 		//Button button_ton = (Button) findViewById(R.id.button1);
@@ -111,16 +101,14 @@ public class Record extends Activity implements Callback{
 		
 		//Button fï¿½r Aufnahme des Pfeiftons wird mit Listener belegt.
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
-		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-		
+		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){		
 			@Override public void onCheckedChanged(final CompoundButton button_Start, boolean state) {
-				
 				if(state){
+					Thread thread = new Thread(runnable);
 					//Ist der Button aktiv, wird der oben erstellte Thread "thread" gestartet. 
 					Toast.makeText(getApplicationContext(), "Los geht's!", Toast.LENGTH_LONG).show();
 					thread.start();
 					db_active = true;
-
 					
 					if (button_Start.isChecked()){
 		                handler1.postDelayed(new Runnable() {
@@ -130,12 +118,24 @@ public class Record extends Activity implements Callback{
 		                }, zeit);}
 
 				} else{
-					//Ist der Button inaktiv wird der Thread "thread" gestoppt.
-					db_active = false;
-					close();
+					db_active = false;	
 					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
+					erreichteVoegel = 0;
+		            counter = 0;
+		            zeit = 20000;
+		     		db_ausgabe.setText("");	
+		    		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
+					
 				}
 		}});	
+		
+		Button button_Close = (Button) findViewById(R.id.button1);
+		button_Close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				close();		
+			}	
+		});
 	}
 
 	@Override
@@ -148,6 +148,8 @@ public class Record extends Activity implements Callback{
 	
 	//Activity wird geschlossen
 	public void close(){
+		
+		db_active = false;
 		Intent intent = new Intent(this, Selection.class);
 		System.out.println("halt.");	
 		db.stop();
@@ -160,10 +162,10 @@ public class Record extends Activity implements Callback{
 	public boolean handleMessage(Message arg0) {
 		//Die berechnete Amplitude wird in Dezibel umgerechnet und ausgegeben.
 		double dbWert = db.getAmplitudeEMA();
-		System.out.println(dbWert);
-		db_ausgabe.setText("Lautstärke: " + dbWert);	
 		//Zeit wird heruntergezählt
 		zeit = zeit - 100;
+		
+		db_ausgabe.setText("Lautstärke: " + dbWert);	
 		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
 		
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.

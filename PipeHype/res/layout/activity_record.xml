@@ -13,10 +13,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="0.02"
+        android:layout_weight="0.03"
         android:text="Pipe Hype"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="58sp"
+        android:textStyle="bold" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton1"
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.04"
+        android:text="@string/Aufnahme_starten"
+        android:textOff="@string/Aufnahme_starten"
+        android:textOn="@string/Aufnahme_stoppen"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <EditText
@@ -49,17 +62,12 @@
         android:inputType="number"
         android:textStyle="bold" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton1"
-        android:layout_width="232dp"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="151dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="50dp"
-        android:layout_weight="0.04"
-        android:text="@string/Aufnahme_starten"
-        android:textOff="@string/Aufnahme_starten"
-        android:textOn="@string/Aufnahme_stoppen"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:text="Button" />
 
 </LinearLayout>
