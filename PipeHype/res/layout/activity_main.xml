@@ -34,4 +34,11 @@
         android:layout_marginLeft="100dp"
         android:text="@string/to_anleitung" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:text="@string/beenden" />
+
 </LinearLayout>

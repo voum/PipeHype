@@ -21,5 +21,7 @@
     <string name="to_level_3">Fink (3)</string>
     <string name="Aufnahme_starten">Start!</string>
     <string name="Aufnahme_stoppen">Abbruch!!!</string>
+    <string name="Zurueck">Zurück</string>
+    <string name="beenden">Beenden</string>
 
 </resources>

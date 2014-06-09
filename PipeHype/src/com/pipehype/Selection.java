@@ -60,6 +60,7 @@ public class Selection extends ActionBarActivity {
 	}
 	private void gotoLevel1(){
 		Level.putInt("Level", 20);
+		Level.putString("Stufe", "Level 1");
 		Intent intent = new Intent(this, Record.class);
     	intent.putExtras(Level);
 		startActivity(intent);
@@ -67,12 +68,14 @@ public class Selection extends ActionBarActivity {
     }
 	private void gotoLevel2(){
 		Level.putInt("Level", 30);
+		Level.putString("Stufe", "Level 1");
 		Intent intent = new Intent(this, Record.class);
 		intent.putExtras(Level);
     	startActivity(intent);    
     }
 	private void gotoLevel3(){
 		Level.putInt("Level", 45);
+		Level.putString("Stufe", "Level 1");
 		Intent intent = new Intent(this, Record.class);
 		intent.putExtras(Level);
     	startActivity(intent);

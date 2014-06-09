@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         //Layout buttons um zwischen den Activities zu schalten
         Button button = (Button) findViewById(R.id.button1);
         button.setOnClickListener(new OnClickListener(){
@@ -28,6 +29,19 @@ public class MainActivity extends ActionBarActivity {
 				goToSelection();
 			}
         });
+        
+        Button button_schliessen = (Button) findViewById(R.id.button3);
+        button_schliessen.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				close();
+			}
+        	
+        	
+        });
+        
+        
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -35,9 +49,7 @@ public class MainActivity extends ActionBarActivity {
                     .commit();
         }
     }
-
     
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -49,6 +61,10 @@ public class MainActivity extends ActionBarActivity {
     private void goToSelection(){
     	Intent intent = new Intent(this, Selection.class);
     	startActivity(intent);
+    	this.finish();
+    }
+    
+    private void close(){
     	this.finish();
     }
 

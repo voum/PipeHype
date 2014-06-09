@@ -41,8 +41,7 @@ public class Record extends Activity implements Callback{
 	 //Levelwerte aus Selection.java werden im Bundle Level gesichert und übergeben.
 	 Bundle Level;
 	 	Integer zeitLevel;
-	 	
-	 Integer erreichteVoegel = 0;
+	 	String stufe;
 	 Integer counter = 0;
 	 Integer zeit = 21000; // in ms
 	 double dbwert;
@@ -81,8 +80,12 @@ public class Record extends Activity implements Callback{
 		Bewertung = (EditText) findViewById(R.id.editText2);
 		timer = (EditText) findViewById(R.id.editText3);	
 		db.start(); 
+		
 		Level = getIntent().getExtras();
-		zeitLevel = Level.getInt("Level");		
+		zeitLevel = Level.getInt("Level");
+		stufe = Level.getString("Stufe");
+		Bewertung.setText(stufe);
+
 		
 
 		//Button fï¿½r Beispielton wird zugeordnet
@@ -120,11 +123,12 @@ public class Record extends Activity implements Callback{
 				} else{
 					db_active = false;	
 					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
-					erreichteVoegel = 0;
+					voegel.anzahlVoegel = 0;
 		            counter = 0;
 		            zeit = 20000;
 		     		db_ausgabe.setText("");	
 		    		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
+		    		Bewertung.setText(stufe);
 					
 				}
 		}});	
