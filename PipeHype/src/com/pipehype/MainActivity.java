@@ -30,6 +30,16 @@ public class MainActivity extends ActionBarActivity {
 			}
         });
         
+        
+        Button button_anl = (Button) findViewById(R.id.button2);
+        button_anl.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				showAnleitung();
+			}
+			
+        });
+        
         Button button_schliessen = (Button) findViewById(R.id.button3);
         button_schliessen.setOnClickListener(new OnClickListener(){
 
@@ -57,6 +67,12 @@ public class MainActivity extends ActionBarActivity {
     //Layout-intents zur Verknüpfung der Activities
     private void goToSelection(){
     	Intent intent = new Intent(this, Selection.class);
+    	startActivity(intent);
+    	this.finish();
+    }
+    
+    private void showAnleitung(){
+    	Intent intent = new Intent(this, Anleitung.class);
     	startActivity(intent);
     	this.finish();
     }
