@@ -30,14 +30,11 @@ public class MainActivity extends ActionBarActivity {
 			}
         });
         
-        
         Button button_anl = (Button) findViewById(R.id.button2);
         button_anl.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				showAnleitung();
-				
-				System.out.println("tja...");
 			}
 			
         });

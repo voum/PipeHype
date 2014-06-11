@@ -45,3 +45,18 @@ public class Tone extends Activity {
         audioTrack.play();
    }
 }
+
+
+
+//Button f�r Beispielton wird zugeordnet
+//Button button_ton = (Button) findViewById(R.id.button1);
+//button_ton.setOnClickListener(new OnClickListener(){
+//	@Override
+//	public void onClick(View v) {
+//	//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
+//	Tone tone = new Tone();
+//	tone.genTone(BeispielTonFrequenz);
+//	//...Der Ton wird abgespielt.
+//	tone.playSound();
+//	}});
+

@@ -36,22 +36,19 @@ import android.os.Build;
 @SuppressLint("WrongCall")
 public class Record extends Activity implements Callback{
 
+	 //Levelwerte aus Selection.java werden im Bundle Level gesichert und uebergeben.
+	 Bundle Level;
+	 	Integer zeitLevel, stufe;
 	 //Integer BeispielTonFrequenz = 600;
 	 Integer dBlevel = 98;
-	 //Levelwerte aus Selection.java werden im Bundle Level gesichert und übergeben.
-	 Bundle Level;
-	 	Integer zeitLevel;
-	 	String stufe;
 	 Integer counter = 0;
 	 Integer zeit = 21000; // in ms
 	 double dbwert;
 	 boolean db_active = false;
 	 DB db = new DB();
 	 Voegel voegel = new Voegel();
-	 EditText db_ausgabe, Bewertung, timer;
-	 
-	 
-	 
+	 Selection selection = new Selection();
+	 EditText db_ausgabe, Bewertung, timer; 
 	// Hier wird der Handler definiert welcher die Message entgegen nimmt (siehe unten)
      final Handler handler = new Handler(this);
      final Handler handler1 = new Handler(this);
@@ -60,15 +57,13 @@ public class Record extends Activity implements Callback{
      Runnable runnable = new Runnable() {
          @Override
          public void run() {
-
              while (db_active == true && zeit > 0){
                  handler.sendEmptyMessage(0);
                  try {
                      Thread.sleep(100);
                  } catch (InterruptedException e) {
                  }  
-             }  
-     
+             }
              }     
      };
      
@@ -80,29 +75,31 @@ public class Record extends Activity implements Callback{
 		Bewertung = (EditText) findViewById(R.id.editText2);
 		timer = (EditText) findViewById(R.id.editText3);	
 		db.start(); 
-		
 		Level = getIntent().getExtras();
 		zeitLevel = Level.getInt("Level");
-		stufe = Level.getString("Stufe");
-		Bewertung.setText(stufe);
-
+		stufe = Level.getInt("Stufe");
+		Bewertung.setText("Level " + stufe);
 		
-
-		//Button fï¿½r Beispielton wird zugeordnet
-		//Button button_ton = (Button) findViewById(R.id.button1);
-		//button_ton.setOnClickListener(new OnClickListener(){
-		//	@Override
-		//	public void onClick(View v) {
-		//	//Ein Objekt der Klasse "Tone" wird mit der dem angegebenen Beispielton entsprechenden Frequenz erzeugt...
-		//	Tone tone = new Tone();
-		//	tone.genTone(BeispielTonFrequenz);
-		//	//...Der Ton wird abgespielt.
-		//	tone.playSound();
-		//	}});
-
+		//Zurueck-Button
+		Button button_Close = (Button) findViewById(R.id.button1);
+		button_Close.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				close();		
+			}	
+		});
 		
+		//Neustarten-Button
+		final Button button_Restart = (Button) findViewById(R.id.button2);
+		button_Restart.setEnabled(false);	
+		button_Restart.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				restart();		
+			}	
+		});
 		
-		//Button fï¿½r Aufnahme des Pfeiftons wird mit Listener belegt.
+		//Button fuer Aufnahme des Pfeiftons wird mit Listener belegt.
 		ToggleButton button_Start = (ToggleButton) findViewById(R.id.toggleButton1);
 		button_Start.setOnCheckedChangeListener(new OnCheckedChangeListener(){		
 			@Override public void onCheckedChanged(final CompoundButton button_Start, boolean state) {
@@ -123,55 +120,66 @@ public class Record extends Activity implements Callback{
 				} else{
 					db_active = false;	
 					Toast.makeText(getApplicationContext(), voegel.getVoegel(), Toast.LENGTH_LONG).show();
-					voegel.anzahlVoegel = 0;
-		            counter = 0;
-		            zeit = 20000;
-		     		db_ausgabe.setText("");	
-		    		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
-		    		Bewertung.setText(stufe);
-					
+					button_Start.setEnabled(false);
+					button_Restart.setEnabled(true);			
+					//if(zeit <= 0){
+					//	nextLevel();
+					//}
 				}
 		}});	
-		
-		Button button_Close = (Button) findViewById(R.id.button1);
-		button_Close.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				close();		
-			}	
-		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.record, menu);
 		return true;
 	}
 	
-	//Activity wird geschlossen
-	public void close(){
-		
-		db_active = false;
-		Intent intent = new Intent(this, Selection.class);
-		System.out.println("halt.");	
+	public void restart(){
+		db_active = false;	
+		voegel.finish();
 		db.stop();
+		Intent intent = new Intent(this, Record.class);
+		intent.putExtras(Level);
+		startActivity(intent);
+		this.finish();
+	}
+	
+	//Activity wird geschlossen
+	public void close(){	
+		db_active = false;	
+		voegel.finish();
+		db.stop();
+		Intent intent = new Intent(this, Selection.class);	
     	startActivity(intent);
-    	this.finish();		
+    	this.finish();
+	}
+	
+	public void nextLevel(){
+		db_active = false;	
+		voegel.finish();
+		db.stop();
+    	if(stufe == 1){	
+    		selection.gotoLevel2();	
+    	}
+    	else if(stufe == 2){
+    		selection.gotoLevel3();	
+    	}
+    	this.finish();
+		
+		
 	}
 
 	@Override
-	//MessageHandler fï¿½r "handler" nimmt Nachrichten von "thread" entgegegen, wï¿½hrend dieser lï¿½uft.
+	//MessageHandler fuer "handler" nimmt Nachrichten von "thread" entgegegen, waehrend dieser laeuft.
 	public boolean handleMessage(Message arg0) {
 		//Die berechnete Amplitude wird in Dezibel umgerechnet und ausgegeben.
 		double dbWert = db.getAmplitudeEMA();
-		//Zeit wird heruntergezählt
-		zeit = zeit - 100;
-		
+		//Zeit wird heruntergezaehlt
+		zeit = zeit - 100;		
 		db_ausgabe.setText("Lautstärke: " + dbWert);	
-		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");
-		
+		timer.setText("Verbleibende Zeit: " + (zeit+1)/1000 + " Sekunden!");	
 		//Solange sich der Wert im richtigen Bereich befindet wird ein "Gut!!!" ausgegeben.
 		if(dbWert> dBlevel-5 & dbWert < dBlevel+5){
 			Bewertung.setText("Gut!!!");

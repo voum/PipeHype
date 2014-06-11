@@ -63,8 +63,17 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.01"
+        android:text="@string/neustarten" />
+
+    <Button
         android:id="@+id/button1"
-        android:layout_width="151dp"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="10dp"
