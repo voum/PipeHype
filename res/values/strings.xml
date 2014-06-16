@@ -27,6 +27,9 @@
     <string name="erklaerung">Um bei PipeHype möglichst erfolgreich zu sein, muss man versuchen den Pfeiffton in einem bestimmten Lautstärkeberech zu halten. Wenn die Lautstärke über eine gewisse Zeit in dem Bereich gehalten wurde, ertönt das zwitschern der eroberten Vogeldame. Am Ende einer Runde, wird angezeigt wieviele Vogeldamen man erobert hat.</string>
 	<string name="from_anleitung_to_menu">zurück</string>
 	<string name="neustarten">Neustart</string>
+<<<<<<< HEAD
 	<string name="tonAus">Ton</string>
 	<string name="tonAn">Ton</string>
+=======
+>>>>>>> origin/master
 </resources>
