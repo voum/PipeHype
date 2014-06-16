@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.pipehype.MainActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -40,5 +41,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:text="@string/beenden" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="ToggleButton"
+        android:textOff="@string/tonAn"
+        android:textOn="@string/tonAus" />
 
 </LinearLayout>

@@ -46,8 +46,6 @@ public class Anleitung extends ActionBarActivity {
 	}
 	
 	private void back_to_menu(){
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
 		this.finish();
 	}
 

@@ -16,7 +16,6 @@ import android.os.Build;
 
 public class Selection extends ActionBarActivity {
 
-	
 	Bundle Level = new Bundle();
 	
 	@Override
@@ -59,32 +58,41 @@ public class Selection extends ActionBarActivity {
 		}
 	}
 	private void gotoLevel1(){
+
 		Level.putInt("Level", 20);
-		Level.putString("Stufe", "Level 1");
+		Level.putInt("Stufe", 1);
 		Intent intent = new Intent(this, Record.class);
     	intent.putExtras(Level);
 		startActivity(intent);
     	this.finish();
     }
-	private void gotoLevel2(){
+	public void gotoLevel2(){
+		
 		Level.putInt("Level", 30);
-		Level.putString("Stufe", "Level 1");
+		Level.putInt("Stufe", 2);
 		Intent intent = new Intent(this, Record.class);
 		intent.putExtras(Level);
-    	startActivity(intent);    
+    	startActivity(intent);
     	this.finish();
     }
-	private void gotoLevel3(){
+	public void gotoLevel3(){
+		
 		Level.putInt("Level", 45);
-		Level.putString("Stufe", "Level 1");
+		Level.putInt("Stufe", 3);
 		Intent intent = new Intent(this, Record.class);
 		intent.putExtras(Level);
     	startActivity(intent);
     	this.finish();
     }
+	
+	public void test(){
+		;
+		
+	}
+	
 	private void back_to_main(){
-    	Intent intent = new Intent(this, MainActivity.class);
-    	startActivity(intent);
+    	//Intent intent = new Intent(this, MainActivity.class);
+    	//startActivity(intent);
     	this.finish();
     }
 	@Override

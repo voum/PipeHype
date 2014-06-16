@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.pipehype.Selection"
     tools:ignore="MergeRootFrame" >
 
@@ -32,7 +33,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
-        android:text="@string/to_level_3"
+        android:text="@string/to_level_2"
         android:textStyle="bold" />
 
     <Button
@@ -40,7 +41,7 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
-        android:text="@string/to_level_2"
+        android:text="@string/to_level_3"
         android:textStyle="bold" />
 
     <Button
